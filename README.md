@@ -1,14 +1,27 @@
 # SQL_NashvilleData_Cleaning
 This project documents how to get the Nashville dataset into SQL Server and cleaning the data to make it ready for analysis.
 
+Check Information Schema
+
+
+![](check_informationSchema.png)
+
 ## Import the data into your SQL Server using the SQL Import and Export Wizard.
 From SSMS object explorer, right click on the database you want to use, go to Task > Import data and follow the prompts to select the source file and destination and load the data. Refresh the database after the import is completed to be able to see the new table added.
 
+
+![Import Export Wizard](import_data.png)
+
 ## Run select statement to see the data
+
+
+![](CheckData.png)
 
 ## Converting sale date format using the CONVERT Function.
 
+
 select SaleDate, CONVERT(Date,SaleDate)As Date from Nashville_Data;
+
 
 alter table Nashville_Data --add a new column to the table
 add SaleDateConv Date;
@@ -22,6 +35,10 @@ Here, a self join is done to compare the address where Parcel ID is same and Uni
 
 ## Breaking property address into address, city, state
 
+
+![](Break_property_address.png)
+
+
 Select PropertyAddress from Nashville_Data
 
 Select PropertyAddress,
@@ -33,10 +50,24 @@ from Nashville_Data
 The Owner address column is broken down using the Parsename/Replace function
 
 ## Clean 'SoldAsVacant' column to Yes/No 
+
+
+![](Clean_soldAsVacant.png)
+
+
 Using a Case statement, replace 'Y' and 'N' with 'Yes' and 'No'.
 
+After Cleaning:
+
+
+![](Cleaned_SoldAsVacant.png)
+
 ## Removing duplicate records
+
 With the Window function Rownumber() and CTE, delete rows with multiple rows that suggest duplicates.
+
+
+![](RemoveDuplicates.png)
 
 ## Remove unnecessary columns
 Optimise the table by removing unwanted columns. 
